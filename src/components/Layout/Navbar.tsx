@@ -76,6 +76,7 @@ const NavbarCustom = () => {
     <Navbar width={{ base: 300 }} height={500} p="xs">
       {data.map((element, index) => (
         <MainLink
+          key={index}
           label={element.label}
           path={element.path}
           icon={element.icon}
