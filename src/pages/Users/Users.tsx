@@ -42,7 +42,7 @@ const Users = () => {
       <td>{element.cname}</td>
       <td>
         <div className="buttons">
-          <Button>Update</Button>
+          <Button onClick={() => {setOpened(true)}}>Update</Button>
           <Button color={"red"} onClick={() => handleUserDelete(element.email)}>
             Delete
           </Button>
