@@ -7,7 +7,7 @@ import {
 } from "../../requests/diseasetype";
 import { IDiseaseType } from "../../ts/types";
 import "./DiseaseType.css";
-import ModalDisease from "../../components/UI/ModalDisease";
+import ModalDiseaseType from "../../components/UI/ModalDiseaseType";
 
 const DiseaseType = () => {
   const [diseaseTypeList, setDiseaseTypeList] = useState<IDiseaseType[]>([]);
@@ -49,7 +49,7 @@ const DiseaseType = () => {
   ));
 
   return (
-    <div className="country">
+    <div className="diseasetype">
       <div className="header">
         <h1>Disease Type</h1>
         <Button
@@ -72,7 +72,7 @@ const DiseaseType = () => {
         </thead>
         <tbody>{rows}</tbody>
       </Table>
-      <ModalDisease
+      <ModalDiseaseType
         opened={opened}
         setOpened={setOpened}
         title={"Add New Disease Type"}

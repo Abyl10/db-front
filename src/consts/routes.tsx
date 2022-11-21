@@ -26,7 +26,7 @@ export const ROUTES: IRoute[] = [
     component: <Country />,
   },
   {
-    path: "/country",
+    path: "/discover",
     component: <Discover />,
   },
   {

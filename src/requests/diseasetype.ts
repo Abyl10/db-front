@@ -1,10 +1,6 @@
 import { api } from "./api";
-import { IDiseaseType } from "../ts/types";
+import { IDiseaseType, IPostResponse } from "../ts/types";
 
-interface IPostResponse {
-  message: string;
-  success: boolean;
-}
 
 export const getAllDiseaseTypes = (): Promise<IDiseaseType[]> =>
   api.get(`/diseasetypes`).then((res) => res.data);

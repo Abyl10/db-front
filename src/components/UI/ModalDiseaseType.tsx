@@ -1,36 +1,34 @@
 import React, { useState } from "react";
 import { Modal, Button, Group, InputBase, Text } from "@mantine/core";
-
-import { IDisease } from "../../ts/types";
-import { createDisease, getAllDiseases } from "../../requests/disease";
+import {
+  createDiseaseType,
+  getAllDiseaseTypes,
+} from "../../requests/diseasetype";
+import { IDiseaseType } from "../../ts/types";
 
 interface IProps {
   opened: boolean;
   setOpened: (val: boolean) => void;
   title: string;
-  diseaseList: IDisease[];
-  setDiseaseList: (val: IDisease[]) => void;
+  diseaseTypeList: IDiseaseType[];
+  setDiseaseTypeList: (val: IDiseaseType[]) => void;
 }
 
 interface IFormValue {
-  disease_code: string;
-  pathogen: string;
-  description: string;
   id: number;
+  description: string;
 }
 
-const ModalDisease: React.FC<IProps> = ({
+const ModalDiseaseType: React.FC<IProps> = ({
   opened,
   setOpened,
   title,
-  diseaseList,
-  setDiseaseList,
+  diseaseTypeList,
+  setDiseaseTypeList,
 }) => {
   const [formValue, setFormValue] = useState<IFormValue>({
-    disease_code: "",
-    pathogen: "",
-    description: "",
     id: 0,
+    description: "",
   });
   const [error, setError] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
@@ -48,25 +46,20 @@ const ModalDisease: React.FC<IProps> = ({
   };
 
   const handleAddClick = () => {
-    if (
-      formValue.disease_code.length &&
-      formValue.pathogen.length &&
-      formValue.id > 0
-    ) {
+    console.log(formValue.id, formValue.description);
+    if (formValue.description.length && formValue.id > 0) {
       setError(false);
       const params = {
-        disease_code: formValue.disease_code,
-        pathogen: formValue.pathogen,
-        description: formValue.description,
         id: formValue.id,
+        description: formValue.description,
       };
-      createDisease(params).then((res) => {
+      createDiseaseType(params).then((res) => {
         setSuccess(res.success);
         setMsg(res.message);
       });
       setTimeout(() => {
-        setDiseaseList([]);
-        getAllDiseases().then((res) => setDiseaseList(res));
+        setDiseaseTypeList([]);
+        getAllDiseaseTypes().then((res) => setDiseaseTypeList(res));
       }, 100);
     } else {
       setError(true);
@@ -81,10 +74,8 @@ const ModalDisease: React.FC<IProps> = ({
     setSuccess(false);
     setMsg("");
     setFormValue({
-      disease_code: "",
-      pathogen: "",
-      description: "",
       id: 0,
+      description: "",
     });
   };
 
@@ -92,36 +83,18 @@ const ModalDisease: React.FC<IProps> = ({
     <>
       <Modal opened={opened} onClose={handleModalClose} title={title}>
         <InputBase
-          name={"disease_code"}
-          label="Disease Code"
-          placeholder={"Enter disease code"}
-          value={formValue.disease_code}
+          name={"id"}
+          label="ID"
+          placeholder={"Enter diseasetype ID"}
+          value={formValue.id}
           onChange={handleInputChange}
-        />
-        <InputBase
-          name={"pathogen"}
-          label="Pathogen"
-          placeholder={"Enter pathogen"}
-          value={formValue.pathogen}
-          onChange={handleInputChange}
-          mt={"md"}
-          mb={"xl"}
         />
         <InputBase
           name={"description"}
           label="Description"
-          placeholder={"Enter disease description"}
-          value={formValue.description}
-          onChange={handleInputChange}
-          mt={"md"}
-          mb={"xl"}
-        />
-        <InputBase
-          name={"id"}
-          label="ID"
           type="number"
-          placeholder={"Enter disease id"}
-          value={formValue.id}
+          placeholder={"Enter diseasetype description"}
+          value={formValue.description}
           onChange={handleInputChange}
           mt={"md"}
           mb={"xl"}
@@ -140,4 +113,4 @@ const ModalDisease: React.FC<IProps> = ({
   );
 };
 
-export default ModalDisease;
+export default ModalDiseaseType;

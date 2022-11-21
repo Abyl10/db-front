@@ -21,3 +21,17 @@ export const tableNames: string[] = [
   "Specialize Table",
   "Record Table",
 ];
+
+export const countryData = [
+  { value: "Kazakhstan", label: "Kazakhstan" },
+  { value: "United Kingdom", label: "United Kingdom" },
+  { value: "China", label: "China" },
+  { value: "Japan", label: "Japan" },
+  { value: "Germany", label: "Germany" },
+  { value: "France", label: "France" },
+  { value: "Italy", label: "Italy" },
+  { value: "Canada", label: "Canada" },
+  { value: "United States", label: "United States" },
+  { value: "Turkey", label: "Turkey" },
+  { value: "Brazil", label: "Brazil" },
+];

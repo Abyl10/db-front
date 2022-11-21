@@ -52,3 +52,8 @@ export interface IRecord {
   total_deaths: number;
   total_patients: number;
 }
+
+export interface IPostResponse {
+  message: string;
+  success: boolean;
+}
