@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/db-front/static/css/main.e6675463.css",
+    "main.js": "/db-front/static/js/main.2e55d9b0.js",
+    "index.html": "/db-front/index.html",
+    "main.e6675463.css.map": "/db-front/static/css/main.e6675463.css.map",
+    "main.2e55d9b0.js.map": "/db-front/static/js/main.2e55d9b0.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6675463.css",
+    "static/js/main.2e55d9b0.js"
+  ]
+}
