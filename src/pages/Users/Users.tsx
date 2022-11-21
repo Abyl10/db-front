@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Table, Button } from "@mantine/core";
+import { Table, Button, Loader } from "@mantine/core";
 import { deleteUser, getAllUsers } from "../../requests/users";
 import { IUsers } from "../../ts/types";
 import "./Users.css";
@@ -8,14 +8,17 @@ import ModalUsers from "../../components/UI/ModalUsers";
 const Users = () => {
   const [usersList, setUsersList] = useState<IUsers[]>([]);
   const [opened, setOpened] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const getDiseaseType = useCallback(() => {
     return getAllUsers().then((res) => {
       setUsersList(res);
+      setLoading(false);
     });
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     getDiseaseType();
   }, []);
 
@@ -49,40 +52,48 @@ const Users = () => {
   ));
 
   return (
-    <div className="users">
-      <div className="header">
-        <h1>Users</h1>
-        <Button
-          color={"green"}
-          onClick={() => {
-            setOpened(true);
-          }}
-        >
-          Add Users
-        </Button>
-      </div>
-      <Table>
-        <thead>
-          <tr>
-            <th>Email</th>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Salary</th>
-            <th>Phone</th>
-            <th>Country Name</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
-      <ModalUsers
-        opened={opened}
-        setOpened={setOpened}
-        title={"Add New Disease Type"}
-        usersList={usersList}
-        setUsersList={setUsersList}
-      />
+    <div>
+      {loading ? (
+        <div className="loader">
+          <Loader color={"red"} size="lg" />
+        </div>
+      ) : (
+        <div className="users">
+          <div className="header">
+            <h1>Users</h1>
+            <Button
+              color={"green"}
+              onClick={() => {
+                setOpened(true);
+              }}
+            >
+              Add Users
+            </Button>
+          </div>
+          <Table>
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Salary</th>
+                <th>Phone</th>
+                <th>Country Name</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>{rows}</tbody>
+          </Table>
+          <ModalUsers
+            opened={opened}
+            setOpened={setOpened}
+            title={"Add New Users"}
+            usersList={usersList}
+            setUsersList={setUsersList}
+          />
+        </div>
+      )}
     </div>
   );
 };

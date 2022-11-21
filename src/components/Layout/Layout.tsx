@@ -17,7 +17,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
           <div
             style={{ display: "flex", alignItems: "center", height: "100%" }}
           >
-            <Text>Application header</Text>
+            <Text>Abylay Kairatbek CSCI 341 bonus task</Text>
           </div>
         </Header>
       }

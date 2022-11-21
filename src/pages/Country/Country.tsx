@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Table, Button } from "@mantine/core";
+import { Table, Button, Loader } from "@mantine/core";
 
 import { deleteCountry, getAllCountries } from "../../requests/country";
 import { ICountry } from "../../ts/types";
@@ -9,14 +9,17 @@ import ModalCountry from "../../components/UI/ModalCountry";
 const Country = () => {
   const [countryList, setCountryList] = useState<ICountry[]>([]);
   const [opened, setOpened] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const getCounty = useCallback(() => {
     return getAllCountries().then((res) => {
+      setLoading(false);
       setCountryList(res);
     });
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     getCounty();
   }, []);
 
@@ -50,37 +53,45 @@ const Country = () => {
   ));
 
   return (
-    <div className="country">
-      <div className="header">
-        <h1>Country</h1>
-        <Button
-          color={"green"}
-          onClick={() => {
-            setOpened(true);
-          }}
-        >
-          Add Country
-        </Button>
-      </div>
-      <Table>
-        <thead>
-          <tr>
-            <th>Number</th>
-            <th>Country Name</th>
-            <th>Population</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
-      <ModalCountry
-        opened={opened}
-        setOpened={setOpened}
-        title={"Add New Country"}
-        countryList={countryList}
-        setCountryList={setCountryList}
-      />
+    <div>
+      {loading ? (
+        <div className="loader">
+          <Loader color={"red"} size="lg" />
+        </div>
+      ) : (
+        <div className="country">
+          <div className="header">
+            <h1>Country</h1>
+            <Button
+              color={"green"}
+              onClick={() => {
+                setOpened(true);
+              }}
+            >
+              Add Country
+            </Button>
+          </div>
+          <Table>
+            <thead>
+              <tr>
+                <th>Number</th>
+                <th>Country Name</th>
+                <th>Population</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>{rows}</tbody>
+          </Table>
+          <ModalCountry
+            opened={opened}
+            setOpened={setOpened}
+            title={"Add New Country"}
+            countryList={countryList}
+            setCountryList={setCountryList}
+          />
+        </div>
+      )}
     </div>
   );
 };

@@ -9,8 +9,8 @@ export const getAllDiseases = (): Promise<IDisease[]> =>
 export const createDisease = (disease: IDisease): Promise<IPostResponse> =>
     api.post(`/disease`, disease).then((res) => res.data);
 
-export const updateDisease = (disease: IDisease): Promise<IPostResponse> =>
-    api.put(`/disease`, disease).then((res) => res.data);
+export const updateDisease = (disease_code: string, disease: IDisease): Promise<IPostResponse> =>
+    api.put(`/disease/${disease_code}`, disease).then((res) => res.data);
 
 export const deleteDisease = (disease_code: string): Promise<IPostResponse> =>
     api.delete(`/disease/${disease_code}`).then((res) => res.data);

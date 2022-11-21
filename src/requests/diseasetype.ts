@@ -11,9 +11,9 @@ export const createDiseaseType = (
   api.post(`/diseasetypes`, country).then((res) => res.data);
 
 export const updateDiseaseType = (
-  country: IDiseaseType
+  id: number, diseaseType: IDiseaseType
 ): Promise<IPostResponse> =>
-  api.put(`/diseasetypes`, country).then((res) => res.data);
+  api.put(`/diseasetypes/${id}`, diseaseType).then((res) => res.data);
 
 export const deleteDiseaseType = (id: number): Promise<IPostResponse> =>
   api.delete(`/diseasetypes/${id}`).then((res) => res.data);

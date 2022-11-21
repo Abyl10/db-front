@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Table, Button } from "@mantine/core";
+import { Table, Button, Loader } from "@mantine/core";
 
 import {
   deleteDiseaseType,
@@ -12,14 +12,17 @@ import ModalDiseaseType from "../../components/UI/ModalDiseaseType";
 const DiseaseType = () => {
   const [diseaseTypeList, setDiseaseTypeList] = useState<IDiseaseType[]>([]);
   const [opened, setOpened] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const getDiseaseType = useCallback(() => {
     return getAllDiseaseTypes().then((res) => {
       setDiseaseTypeList(res);
+      setLoading(false);
     });
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     getDiseaseType();
   }, []);
 
@@ -49,36 +52,44 @@ const DiseaseType = () => {
   ));
 
   return (
-    <div className="diseasetype">
-      <div className="header">
-        <h1>Disease Type</h1>
-        <Button
-          color={"green"}
-          onClick={() => {
-            setOpened(true);
-          }}
-        >
-          Add Disease Type
-        </Button>
-      </div>
-      <Table>
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Description</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
-      <ModalDiseaseType
-        opened={opened}
-        setOpened={setOpened}
-        title={"Add New Disease Type"}
-        diseaseTypeList={diseaseTypeList}
-        setDiseaseTypeList={setDiseaseTypeList}
-      />
+    <div>
+      {loading ? (
+        <div className="loader">
+          <Loader color={"red"} size="lg" />
+        </div>
+      ) : (
+        <div className="diseasetype">
+          <div className="header">
+            <h1>Disease Type</h1>
+            <Button
+              color={"green"}
+              onClick={() => {
+                setOpened(true);
+              }}
+            >
+              Add Disease Type
+            </Button>
+          </div>
+          <Table>
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>{rows}</tbody>
+          </Table>
+          <ModalDiseaseType
+            opened={opened}
+            setOpened={setOpened}
+            title={"Add New Disease Type"}
+            diseaseTypeList={diseaseTypeList}
+            setDiseaseTypeList={setDiseaseTypeList}
+          />
+        </div>
+      )}
     </div>
   );
 };

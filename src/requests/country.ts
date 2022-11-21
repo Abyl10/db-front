@@ -7,8 +7,8 @@ export const getAllCountries = (): Promise<ICountry[]> =>
 export const createCountry = (country: ICountry): Promise<IPostResponse> =>
   api.post(`/country`, country).then((res) => res.data);
 
-export const updateCountry = (country: ICountry): Promise<IPostResponse> =>
-  api.put(`/country`, country).then((res) => res.data);
+export const updateCountry = (cname: string, country: ICountry): Promise<IPostResponse> =>
+  api.put(`/country/${cname}`, country).then((res) => res.data);
 
 export const deleteCountry = (cname: string): Promise<IPostResponse> =>
   api.delete(`/country/${cname}`).then((res) => res.data);

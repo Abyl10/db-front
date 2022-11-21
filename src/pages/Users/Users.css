@@ -13,3 +13,10 @@
     gap: 10px;
     justify-content: flex-end;
 }
+
+.loader {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
